@@ -1,4 +1,5 @@
 const express = require("express");
+const { autHhandler } = require("../middlewares/authHandler");
 const task = require("../usecases/task");
 const router = express.Router();
 router.get("/", async(req, res, next) => {
@@ -17,7 +18,7 @@ router.get("/:id", async(req, res, next) => {
     const payload = await task.getByID(id)
     res.json({ success: true, payload })
 })
-router.post("/", async(req, res, next) => {
+router.post("/", autHhandler, async(req, res, next) => {
     try {
         const { title, description, completed } = req.body
         const taskCreated = await task.create({ title, description, completed })
@@ -30,7 +31,7 @@ router.post("/", async(req, res, next) => {
         next(error)
     }
 })
-router.put("/:id", async(req, res, next) => {
+router.put("/:id", autHhandler, async(req, res, next) => {
 
     try {
         const { id } = req.params
@@ -45,7 +46,7 @@ router.put("/:id", async(req, res, next) => {
         next(error)
     }
 })
-router.delete("/:id", async(req, res, next) => {
+router.delete("/:id", autHhandler, async(req, res, next) => {
     try {
         const { id } = req.params
         const taskDeleted = await task.del(id)
