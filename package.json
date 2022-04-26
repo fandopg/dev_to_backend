@@ -1,17 +1,19 @@
 {
-    "name": "project1",
+    "name": "dev_to",
     "version": "1.0.0",
-    "description": "ejercicio 1 de backend",
+    "description": "Reto backend Dev_To",
     "main": "index.js",
     "scripts": {
         "dev": "node index.js",
         "start": "node index.js"
     },
     "keywords": [
-        "ejercicio1",
-        "backend"
+        "dev_to",
+        "backend",
+        "desafio",
+        "kodemia"
     ],
-    "author": "@zzinue",
+    "author": "@fandopg",
     "license": "MIT",
     "dependencies": {
         "bcrypt": "^5.0.1",

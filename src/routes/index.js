@@ -1,9 +1,9 @@
-const taskSRouter = require('./tasks')
-const usersRouter = require('./users')
-const authRouter = require('./auth')
+const publicationsRouter = require("./publications");
+const usersRouter = require("./users");
+const authRouter = require("./auth");
 const apiRouter = (app) => {
-    app.use('/tasks', taskSRouter)
-    app.use('/users', usersRouter)
-    app.use('/auth', authRouter)
-}
-module.exports = apiRouter
+  app.use("/publications", publicationsRouter);
+  app.use("/users", usersRouter);
+  app.use("/auth", authRouter);
+};
+module.exports = apiRouter;
