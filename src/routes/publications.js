@@ -26,94 +26,82 @@ router.get("/:id", async (req, res) => {
   res.json({ success: true, payload });
 });
 
-router.post(
-  "/",
-  /* authHandler ,*/ async (req, res, next) => {
-    try {
-      const { title, image, content, date, tags } = req.body;
+router.post("/", authHandler, async (req, res, next) => {
+  try {
+    const { title, image, content, date, tags } = req.body;
 
-      const publicationCreated = await publication.create({
-        title,
-        image,
-        content,
-        date,
-        tags,
-      });
+    const publicationCreated = await publication.create({
+      title,
+      image,
+      content,
+      date,
+      tags,
+    });
 
-      res.json({
-        success: true,
-        message: "Post creado",
-        payload: publicationCreated,
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.json({
+      success: true,
+      message: "Post creado",
+      payload: publicationCreated,
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-router.put(
-  "/:id",
-  /* authHandler, */ async (req, res, next) => {
-    try {
-      const { id } = req.params;
+router.put("/:id", authHandler, async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-      const { title, image, content, date, tags } = req.body;
+    const { title, image, content, date, tags } = req.body;
 
-      const publicationUpdated = await publication.update(id, {
-        title,
-        image,
-        content,
-        date,
-        tags,
-      });
+    const publicationUpdated = await publication.update(id, {
+      title,
+      image,
+      content,
+      date,
+      tags,
+    });
 
-      res.json({
-        success: true,
-        message: `Post ${id} actualizado`,
-        payload: publicationUpdated,
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.json({
+      success: true,
+      message: `Post ${id} actualizado`,
+      payload: publicationUpdated,
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-router.patch(
-  "/:id",
-  /* authHandler, */ async (req, res, next) => {
-    try {
-      const { id } = req.params;
+router.patch("/:id", authHandler, async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-      const publicationUpdated = await publication.patch(id, { ...req.body });
+    const publicationUpdated = await publication.patch(id, { ...req.body });
 
-      res.json({
-        success: true,
-        message: `Post ${id} actualizado`,
-        payload: publicationUpdated,
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.json({
+      success: true,
+      message: `Post ${id} actualizado`,
+      payload: publicationUpdated,
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-router.delete(
-  "/:id",
-  /* authHandler, */ async (req, res, next) => {
-    try {
-      const { id } = req.params;
+router.delete("/:id", authHandler, async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-      const publicationDeleted = await publication.del(id);
+    const publicationDeleted = await publication.del(id);
 
-      res.json({
-        success: true,
-        message: `Post ${id} eliminado`,
-        payload: publicationDeleted,
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.json({
+      success: true,
+      message: `Post ${id} eliminado`,
+      payload: publicationDeleted,
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 module.exports = router;
