@@ -19,9 +19,14 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, publications } = req.body;
 
-    const userCreated = await user.create(userName, email, password);
+    const userCreated = await user.create(
+      userName,
+      email,
+      password,
+      publications
+    );
 
     res.json({
       success: true,

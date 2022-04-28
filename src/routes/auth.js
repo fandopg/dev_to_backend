@@ -16,10 +16,10 @@ router.post("/login", async (req, res, next) => {
         sub: retrievedUser._id,
         role: retrievedUser.role,
       });
-
+      const resIsMatch = { token, id: retrievedUser._id };
       res.json({
         success: true,
-        payload: token,
+        payload: resIsMatch,
       });
     } else {
       res

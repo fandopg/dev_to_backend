@@ -18,17 +18,18 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/:sub", authHandler, async (req, res) => {
+  const { sub } = req.params.tokenPayload;
 
-  const payload = await publication.getById(id);
+  const payload = await publication.getById(sub);
 
   res.json({ success: true, payload });
 });
 
 router.post("/", authHandler, async (req, res, next) => {
   try {
-    const { title, image, content, date, tags } = req.body;
+    const { title, image, content, date, tags, user } = req.body;
+    const { sub } = req.params.tokenPayload;
 
     const publicationCreated = await publication.create({
       title,
@@ -36,6 +37,7 @@ router.post("/", authHandler, async (req, res, next) => {
       content,
       date,
       tags,
+      user: sub,
     });
 
     res.json({
@@ -52,7 +54,7 @@ router.put("/:id", authHandler, async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const { title, image, content, date, tags } = req.body;
+    const { title, image, content, date, tags, user } = req.body;
 
     const publicationUpdated = await publication.update(id, {
       title,
@@ -60,6 +62,7 @@ router.put("/:id", authHandler, async (req, res, next) => {
       content,
       date,
       tags,
+      user,
     });
 
     res.json({

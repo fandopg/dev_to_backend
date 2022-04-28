@@ -15,10 +15,10 @@ const authenticate = async (user, password) => {
   return await encrypt.verifyPassword(password, hash);
 };
 
-const create = async (userName, email, password) => {
+const create = async (userName, email, password, publications) => {
   const hash = await encrypt.hashPassword(password);
 
-  const user = new User({ userName, email, password: hash });
+  const user = new User({ userName, email, password: hash, publications });
 
   return await user.save();
 };

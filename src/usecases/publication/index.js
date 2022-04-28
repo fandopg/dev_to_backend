@@ -12,7 +12,7 @@ const getById = async (id) => {
 };
 
 const create = async (publicationData) => {
-  const { title, image, content, date, tags } = publicationData;
+  const { title, image, content, date, tags, user } = publicationData;
 
   const newPublication = new Publication({
     title,
@@ -20,6 +20,7 @@ const create = async (publicationData) => {
     content,
     date,
     tags,
+    user,
   });
 
   const savedPublication = await newPublication.save();
@@ -28,7 +29,7 @@ const create = async (publicationData) => {
 };
 
 const update = async (id, publicationData) => {
-  const { title, image, content, date, tags } = publicationData;
+  const { title, image, content, date, tags, user } = publicationData;
 
   const updatedPublication = await Publication.findByIdAndUpdate(
     id,
@@ -38,6 +39,7 @@ const update = async (id, publicationData) => {
       content,
       date,
       tags,
+      user,
     },
     { new: true }
   ).exec();
